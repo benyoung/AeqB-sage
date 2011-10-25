@@ -1,0 +1,15 @@
+These are implementations of the algorithms in the book "A=B", as well as
+(maybe) some generalizations.  These are algorithms for evaluating
+hypergeometric sums in closed form.
+
+The book is available online here:
+
+http://www.math.upenn.edu/~wilf/AeqB.html
+
+This is essentially a personal project, to learn how these algorithms work.
+Hopefully they will eventually be useful to the broader mathematical
+community as a whole, but please do bear in mind that I am not yet an expert
+in this area.  Nothing is currently certified to be bug-free.
+
+
+
