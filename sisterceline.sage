@@ -13,7 +13,7 @@ def celine(f, v1, v2, I, J):
         for j in range(J+1):
             x = var('a' + str(i) + 'b' + str(j))
             variables.append(x)
-            acc += x * (f.substitute({v1:v1-i, v2:v2-j})/f).full_simplify()
+            acc += x * (f.substitute({v1:v1+i, v2:v2+j})/f).full_simplify()
     target = acc.factor().numerator()
     relations = []
     for [x,y] in target.coefficients(k):
