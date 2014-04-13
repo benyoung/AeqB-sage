@@ -48,10 +48,3 @@ def gaussian_elimination(R,N):
                         M[j][k] -= (M[i][k]*constant2)
     
     return matrix(M)
-                        
-                        
-N = matrix([[2,5,1,3030],[11,2,0,6892],[4,1,3,8774]])
-#N_2 = matrix([[1.5 for i in range(5)] for j in range(5)])
-R = IntegerModRing(97)
-M = gaussian_elimination(R,N)
-print M
