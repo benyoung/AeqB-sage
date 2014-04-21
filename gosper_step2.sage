@@ -2,7 +2,7 @@ def resultant_roots(x,y,n,h):
 	return y(n+h,h).resultant(x,n).univariate_polynomial().roots()
 
 def gosper_step2(r,n,h):
-	# Takes as input a multivariate polynomial r defined in the polynomial variables n and
+	# Takes as input a multivariate rational r defined in the polynomial variables n and
 	# h. Returns polynomials that satisfy step 2 of Gosper's algorithm, as outlined in 
 	# "A=B."    
 	R = PolynomialRing(QQ,[n,h])
