@@ -2,9 +2,12 @@ def resultant_roots(x,y,n,h):
 	return y(n=n+h).resultant(x,n).univariate_polynomial().roots()
 
 def gosper_step2(r,n,h):
+	# Takes as input a multivariate polynomial r defined in the polynomial variables n and
+	# h. Returns polynomials that satisfy step 2 of Gosper's algorithm, as outlined in 
+	# "A=B."
 	x = r.numerator()
 	y = r.denominator()
-	
+
 	S = resultant_roots(x,y,n,h)
 	S = [item[0] for item in S if item[0] > 0]
 
