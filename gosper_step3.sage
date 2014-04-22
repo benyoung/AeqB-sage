@@ -26,14 +26,19 @@ def gosper_step3(a,b,c,n):
 	x = 0
 	for i in range(len(var_list)):
 		x += n**i * var_list[i]
-	#print x
 	
+	R = PolynomialRing(QQ,[n])
+	a = R(a)
+	b = R(b)
+	c = R(c)
 	relations = []
-	for elem in (a*x(n=n+1) - b(n=n-1)*x - c).full_simplify().coefficients(n):
+	for elem in (a*x(n=n+1) - b(n-1)*x - c).full_simplify().coefficients(n):
 		relations.append(elem[0] == 0)
 
 	solved = solve(relations,var_list)
 	x = 0
-	for i in range(len(var_list)):
-		x += list(solved[i].iterator())[1]*n**i
+	z = R(n)
+ 	for i in range(len(var_list)):
+ 		x += list(solved[i].iterator())[1]*(z^i)
+	
 	return x
