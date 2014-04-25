@@ -1,12 +1,22 @@
+##########################################################################################
+# DESCRIPTION: Follows the explanation of step 2 of Gosper's algorithm described in "A=B" by 
+# Marko Petkovsek, Herbert Wilf, and Doron Zeilberger.
+#
+# INPUT: Takes as input a rational expression r defined in variables n and h, and the input      
+# variables n and h.
+#
+# OUTPUT: Returns the polynomials a, b, and c such that r(n) = a(n)/b(n)*c(n+1)/c(n) and
+# gcd(a(n),b(n+h)) = 1 for any non-negative integer h.
+#
+# AUTHOR: Kevin Wilson, kwilson8@uoregon.edu
+##########################################################################################
+
 def gosper_step2(r,n,h):
-	# Takes as input a multivariate rational expression r defined in the polynomial variables n and
-	# h. Returns polynomials that satisfy step 2 of Gosper's algorithm, as outlined in "A=B."
-	    
 	R = PolynomialRing(QQ,[n,h])
 	x = R(r.numerator())    
 	y = R(r.denominator())
     
-    # Calculate common roots of y(n+h) and x(n) for any positive integer h
+    # Calculate common roots of y(n+h) and x(n) for any non-negative integer h
 	S = R(y(n+h,h)).resultant(x,R(n)).univariate_polynomial().roots()
 	S = [item[0] for item in S if item[0] > 0]
 

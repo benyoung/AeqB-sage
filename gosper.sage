@@ -1,6 +1,17 @@
+##########################################################################################
+# DESCRIPTION: Follows the explanation of the complete Gosper's algorithm described in "A=B"
+# by Marko Petkovsek, Herbert Wilf, and Doron Zeilberger.
+#
+# INPUT: Takes an expression that represents the hypergeometric term t(n) and the variable
+# n for which t is defined over.
+#
+# OUTPUT: Returns an expression z_n for the resulting hypergeometric term that satisfies 
+# Gosper's algorithm. I.E., sum(t(k),k,0,n-1) = z_n - z_0
+#
+# AUTHOR: Kevin Wilson, kwilson8@uoregon.edu
+##########################################################################################
+
 def gosper_sum(t,n):
-    # Takes an expression and the variable for which the expression takes as input, and returns
-    # an expression for the resulting hypergeometric term that satisfies Gosper's algorithm
     r = (t(n+1)/t).full_simplify()
     h = var('h')
     R = PolynomialRing(QQ,[n,h])

@@ -1,9 +1,16 @@
+##########################################################################################
+# DESCRIPTION: Follows the explanation of step 3 of Gosper's algorithm described in "A=B" by 
+# Marko Petkovsek, Herbert Wilf, and Doron Zeilberger.
+#
+# INPUT: Takes as input multivariate polynomials a, b, and c defined over variables including
+# n, and input variable n.
+#
+# OUTPUT: Returns the polynomial x(n) such that a(n)*x(n+1) - b(n-1)*x(n) = c(n).
+#
+# AUTHOR: Kevin Wilson, kwilson8@uoregon.edu
+##########################################################################################
+
 def gosper_step3(a,b,c,n):
-	# Takes as input three multivariate polynomials, defined over same variables, and a 
-	# variable, and returns a polynomial x(n) such that a(n)*x(n+1) - b(n-1)*x(n) = c(n).
-	# Follows similarly to the explanation of step 3 of Gosper's algorithm as listed in
-	# "A=B".
-	
 	deg_a = a.degree()
 	deg_b = b.degree()
 	deg_c = c.degree()
@@ -11,8 +18,13 @@ def gosper_step3(a,b,c,n):
 	lc_b = b.coefficients()[-1]
 	
 	# Determine degree of polynomial x
+	# If degree of a doesn't equal degree of b or the the degrees are equal but the leading
+	# coefficients aren't, then the degree of x is the degree of c minus the maximum of
+	# the degrees of a and b since a(n)*x(n+1) - b(n-1)*x(n) = c(n).
 	if (deg_a != deg_b) or lc_a != lc_b:
 		d = (deg_c - max(deg_a,deg_b),0)
+	# Otherwise, we examine the leading coefficients of the second power and use these
+	# to determine the power of x.
 	else:
 		A = a.coefficients()[-2]
 		B = b.coefficients()[-2]
@@ -23,6 +35,7 @@ def gosper_step3(a,b,c,n):
 	else:
 		d = max(d[0],d[1])
 		
+	# Create the unknown coefficients of the powers of n in x.
 	var_list = []
 	for i in range(d+1):
 		s = var("a" + str(i))
@@ -33,7 +46,8 @@ def gosper_step3(a,b,c,n):
 	for i in range(len(var_list)):
 		x += n**i * var_list[i]
 	
-	# Use method of undetermined coefficients to find polynomial x
+	# Use method of undetermined coefficients to find explicit polynomial x that satisfies
+	# the listed equation in the function header.
 	R = PolynomialRing(QQ,[n])
 	a = R(a)
 	b = R(b)
