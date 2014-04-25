@@ -1,10 +1,16 @@
 def gosper_step3(a,b,c,n):
+	# Takes as input three multivariate polynomials, defined over same variables, and a 
+	# variable, and returns a polynomial x(n) such that a(n)*x(n+1) - b(n-1)*x(n) = c(n).
+	# Follows similarly to the explanation of step 3 of Gosper's algorithm as listed in
+	# "A=B".
+	
 	deg_a = a.degree()
 	deg_b = b.degree()
 	deg_c = c.degree()
 	lc_a = a.coefficients()[-1]
 	lc_b = b.coefficients()[-1]
 	
+	# Determine degree of polynomial x
 	if (deg_a != deg_b) or lc_a != lc_b:
 		d = (deg_c - max(deg_a,deg_b),0)
 	else:
@@ -21,12 +27,13 @@ def gosper_step3(a,b,c,n):
 	for i in range(d+1):
 		s = var("a" + str(i))
 		var_list.append(s)
-	#print var_list
-
+	
+	# x is an expression at this point
 	x = 0
 	for i in range(len(var_list)):
 		x += n**i * var_list[i]
 	
+	# Use method of undetermined coefficients to find polynomial x
 	R = PolynomialRing(QQ,[n])
 	a = R(a)
 	b = R(b)
@@ -36,6 +43,9 @@ def gosper_step3(a,b,c,n):
 		relations.append(elem[0] == 0)
 
 	solved = solve(relations,var_list)
+	if not solved:
+		return "No polynomial solution exists"
+	# x is now a polynomial over the variable n
 	x = 0
 	z = R(n)
  	for i in range(len(var_list)):

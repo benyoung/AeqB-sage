@@ -1,11 +1,12 @@
 def gosper_step2(r,n,h):
-	# Takes as input a multivariate rational r defined in the polynomial variables n and
-	# h. Returns polynomials that satisfy step 2 of Gosper's algorithm, as outlined in 
-	# "A=B."    
+	# Takes as input a multivariate rational expression r defined in the polynomial variables n and
+	# h. Returns polynomials that satisfy step 2 of Gosper's algorithm, as outlined in "A=B."
+	    
 	R = PolynomialRing(QQ,[n,h])
 	x = R(r.numerator())    
 	y = R(r.denominator())
-
+    
+    # Calculate common roots of y(n+h) and x(n) for any positive integer h
 	S = R(y(n+h,h)).resultant(x,R(n)).univariate_polynomial().roots()
 	S = [item[0] for item in S if item[0] > 0]
 
