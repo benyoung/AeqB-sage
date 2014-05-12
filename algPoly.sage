@@ -46,7 +46,6 @@ def algPoly(polyList,f,n):
 	solution = -1*f
 	for i in range(len(polyList)):
 	    	solution += pol.substitute(n==n+i)*polyList[i]
-	print solution.coefficients(n)
 	coeff = solution.coefficients(n)
 	solved = []
 	for i in range(len(coeff)):
