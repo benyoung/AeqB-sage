@@ -26,23 +26,24 @@ def algPoly(polyList,f,n):
 	b = max([(qList[j].degree(n) - j) for j in range(len(qList))])
 	first = f.degree(n) - b
 	second = -1*b - 1
+	lc = [qList[j].expand().coefficients()[-1][0] for j in range(len(qList))]
 	
-	lc = [qList[j].coefficients()[-1][0] for j in range(len(qList))]
 	alpha = 0*n
 	for j in range(len(qList)):
 		if (qList[j].degree(n) - j) == b:
 			alpha += lc[j]*fallingFactorial(n,j)
-	
-	deg = alpha.roots()
-	third = max([deg[j][0] for j in range(len(deg))])
-	d = max(first,second,third)
-    	
+	try:
+    	    deg = alpha.roots()
+	    third = max([deg[j][0] for j in range(len(deg))])
+	    d = max(first,second,third,0)
+        except:
+	    d = max(first,second,0)
+        
     	# Use method of undetermined coefficients to find the output polynomial.
 	varList = [var('a' + str(j)) for j in range(d+1)]
     	pol = 0*n
 	for i in range(d+1):
 		pol += n**i * varList[i]
-	
 	solution = -1*f
 	for i in range(len(polyList)):
 	    	solution += pol.substitute(n==n+i)*polyList[i]
